@@ -1,4 +1,4 @@
-# 🚗 ARIMA Model for Vehicle Sales Forecasting (2023)
+# 🚗 ARIMA Model for Vehicle Sales Forecasting
 
 A data-driven **time series forecasting project** that uses the **ARIMA (AutoRegressive Integrated Moving Average)** model to analyze and predict future vehicle (tractor) sales trends. The project involves exploratory data analysis, seasonality detection, stationarity testing, and ARIMA parameter tuning to create accurate forecasts.
 
