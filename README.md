@@ -1,91 +1,98 @@
-# 🚗 ARIMA Model for Prediction of Vehicle Sales
+# 🚗 ARIMA Model for Vehicle Sales Forecasting (2023)
 
-A machine learning project that uses **ARIMA (AutoRegressive Integrated Moving Average)** to predict future vehicle sales based on historical data. This project demonstrates time series analysis, data preprocessing, model tuning, and visualization using Python.
+A data-driven **time series forecasting project** that uses the **ARIMA (AutoRegressive Integrated Moving Average)** model to analyze and predict future vehicle (tractor) sales trends. The project involves exploratory data analysis, seasonality detection, stationarity testing, and ARIMA parameter tuning to create accurate forecasts.
 
 ---
 
 ## 🔧 Technologies Used
 
-* **Language:** Python 3.11+
-* **Libraries:** Pandas, NumPy, Matplotlib, Seaborn, Statsmodels, Scikit-learn
+* **Programming Language:** Python 3.x
+* **Libraries:** Pandas, NumPy, Matplotlib, Seaborn, Statsmodels, itertools, warnings, requests, calendar
+* **Frameworks:** Statsmodels (SARIMAX), Scikit-learn (for metrics)
 * **IDE:** Jupyter Notebook / VS Code
-* **Version Control:** Git & GitHub
+* **Dataset:** PH-Sales.csv (Vehicle/Tractor Monthly Sales Data)
 
 ---
 
 ## ✅ Features
 
-* Import and preprocess real-world vehicle sales dataset
-* Perform **exploratory data analysis (EDA)** with plots and trend analysis
-* Test stationarity using **ADF (Augmented Dickey-Fuller)** test
-* Automatically determine ARIMA `(p, d, q)` parameters
-* Train and validate ARIMA model for time series forecasting
-* Visualize prediction vs actual sales data
-* Export model predictions for reporting or dashboard integration
+* Load and preprocess monthly tractor sales data
+* Generate **time series visualizations** for trend and seasonality
+* Apply **moving average smoothing** for trend analysis
+* Perform **Dickey-Fuller test** for stationarity detection
+* Visualize **rolling mean and standard deviation**
+* Conduct **seasonal decomposition** using multiplicative model
+* Plot **ACF and PACF** graphs to identify AR and MA terms
+* Tune ARIMA parameters automatically to find the best SARIMAX model
+* Generate **dynamic forecasts** and visualize confidence intervals
+* Evaluate model accuracy using Mean Squared Error (MSE)
+
+---
+
+## 🧠 ARIMA & SARIMAX Overview
+
+**ARIMA (AutoRegressive Integrated Moving Average)** models time series data to forecast future values by capturing dependencies between observations.
+
+**SARIMAX (Seasonal ARIMA with eXogenous regressors)** extends ARIMA by adding seasonality components `(p, d, q, s)` for monthly, quarterly, or yearly patterns.
+
+* **p:** Number of autoregressive terms (AR)
+* **d:** Degree of differencing (I)
+* **q:** Number of moving average terms (MA)
+* **s:** Seasonal cycle length (e.g., 12 for monthly data)
 
 ---
 
 ## 📊 Workflow
 
-1. **Data Collection:** Load vehicle sales data (CSV or Excel format)
-2. **EDA:** Visualize trends, seasonal effects, and autocorrelation
-3. **Preprocessing:** Handle missing values and outliers
-4. **Model Building:** Fit ARIMA model using statsmodels
-5. **Forecasting:** Predict future sales periods
-6. **Visualization:** Compare actual vs predicted values using Matplotlib
+1. **Data Loading & Inspection:** Import CSV data, inspect shape, and clean column names.
+2. **Time Series Setup:** Assign monthly frequency and set the index to dates.
+3. **Trend Analysis:** Plot moving averages for 4, 6, 8, and 12 months.
+4. **Stationarity Check:** Apply **Dickey-Fuller test** and visualize rolling mean/std.
+5. **Seasonality Detection:** Generate pivot plots and boxplots by month and year.
+6. **Decomposition:** Split series into trend, seasonality, and residual components.
+7. **Transformation:** Apply **log transform** and differencing to stabilize variance.
+8. **ACF/PACF Plots:** Identify potential AR and MA parameters.
+9. **Model Selection:** Auto-tune SARIMAX `(p, d, q)x(P, D, Q, s)` parameters using AIC.
+10. **Model Training:** Fit the best SARIMAX model and summarize results.
+11. **Forecasting:** Predict sales dynamically and for future periods (36 months).
+12. **Evaluation:** Compute MSE and visualize forecast confidence bands.
 
 ---
 
-## 🧠 ARIMA Overview
+## ⚙️ Key Steps and Outputs
 
-**ARIMA (AutoRegressive Integrated Moving Average)** is a statistical model used for forecasting stationary time series data. It combines:
+### 🔹 Moving Average Analysis
 
-* **AR (AutoRegressive)** – relationship between an observation and previous values.
-* **I (Integrated)** – differencing of raw observations to make the time series stationary.
-* **MA (Moving Average)** – relationship between an observation and residual errors from a moving average model.
+Smoothens short-term fluctuations to highlight long-term trends.
 
----
+### 🔹 Stationarity Testing
 
-## 🧩 How to Run Locally
+Applied **Augmented Dickey-Fuller (ADF)** test to confirm if differencing is required.
 
-1. Clone this repository:
+### 🔹 ACF & PACF Visualization
 
-   ```bash
-   git clone https://github.com/kvvr0076/ARIMA-Model-for-Prediction-of-Vehicle-Sales.git
-   ```
-2. Navigate to the project folder:
+Helps determine AR (p) and MA (q) parameters by analyzing autocorrelation and partial autocorrelation plots.
 
-   ```bash
-   cd ARIMA-Model-for-Prediction-of-Vehicle-Sales
-   ```
-3. Install dependencies:
+### 🔹 Model Optimization
 
-   ```bash
-   pip install -r requirements.txt
-   ```
-4. Run the Jupyter Notebook or Python script:
+Used **Akaike Information Criterion (AIC)** to find the best-fitting SARIMAX model.
 
-   ```bash
-   jupyter notebook ARIMA_Model_Vehicle_Sales.ipynb
-   ```
+### 🔹 Forecast Generation
 
-   or
-
-   ```bash
-   python vehicle_sales_forecast.py
-   ```
+Produced forecasts for future sales periods with 95% and 99% confidence intervals.
 
 ---
 
 ## 📈 Results
 
-* Visualized sales trends over multiple years.
-* Forecasted future vehicle sales with ARIMA model.
-* Achieved strong accuracy validated using RMSE and MAPE metrics.
+* Best ARIMA Configuration: `(0, 1, 1) x (1, 0, 1, 12)`
+* Achieved low Mean Squared Error (MSE ≈ 0.0011)
+* Forecast visualizations show strong alignment between observed and predicted sales trends
+* Clear monthly seasonality pattern detected (sales peak around July-August)
 
 ---
 
-## 🧮 Example Output
+## 🪄 Example Visualization
 
 | Year | Predicted Sales | Actual Sales |
 | ---- | --------------- | ------------ |
@@ -93,12 +100,49 @@ A machine learning project that uses **ARIMA (AutoRegressive Integrated Moving A
 | 2021 | 19,050          | 18,920       |
 | 2022 | 19,770          | 19,700       |
 
+**Sample Outputs:**
+
+* Time series trend plot (2003–2022)
+* Rolling mean & standard deviation
+* Seasonal decomposition plots
+* ACF/PACF analysis charts
+* Forecast confidence intervals (95% & 99%)
+
 ---
 
-## ☁️ Deployment (Optional)
+## 📂 How to Run Locally
 
-* You can deploy this project as a dashboard using **Streamlit** or **Flask**.
-* Host models or results on **Azure ML**, **AWS Sagemaker**, or **Google Colab**.
+1. Clone the repository:
+
+   ```bash
+   git clone https://github.com/kvvr0076/ARIMA-Model-for-Prediction-of-Vehicle-Sales.git
+   ```
+2. Navigate to the directory:
+
+   ```bash
+   cd ARIMA-Model-for-Prediction-of-Vehicle-Sales
+   ```
+3. Install dependencies:
+
+   ```bash
+   pip install pandas numpy matplotlib seaborn statsmodels scikit-learn
+   ```
+4. Run the Python script:
+
+   ```bash
+   python vehicle_sales_forecast.py
+   ```
+
+   or open the Jupyter Notebook version if available.
+
+---
+
+## ☁️ Future Enhancements
+
+* Integrate **Facebook Prophet** for hybrid forecasting
+* Deploy as an **interactive Streamlit dashboard**
+* Include external economic indicators (GDP, fuel price) as exogenous features
+* Compare ARIMA with **LSTM and GRU** models for deep learning-based forecasting
 
 ---
 
@@ -106,15 +150,6 @@ A machine learning project that uses **ARIMA (AutoRegressive Integrated Moving A
 
 **Vishnuvardhan Reddy Komatireddy**
 📅 Year: 2025
-🔗 GitHub: [https://github.com/kvvr0076](https://github.com/kvvr0076)
-
----
-
-## 🪄 Future Enhancements
-
-* Integrate seasonal ARIMA (SARIMA) for better seasonality handling
-* Add GUI dashboard using Streamlit
-* Deploy on Azure Web App with live model updates
 
 ---
 
